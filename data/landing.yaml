@@ -1,0 +1,46 @@
+# Note: Template blocks require a 'weight' parameter so they're correctly ordered on the landing page
+
+# Hero
+hero:
+  enable: true
+  weight: 10
+  template: hero
+
+  backgroundImage:
+    path: "images/templates/hero"
+    filename:
+      desktop: "gradient-desktop.webp"
+      mobile: "gradient-mobile.webp"
+
+  badge:
+    text: v0.1.0
+    color: primary # primary, secondary, success, danger, warning, info, light, dark
+    pill: false # boolean
+    soft: true # boolean
+
+  titleLogo:
+     path: "images"
+     filename: "ghw-gopher.png"
+     alt: "ghw Gopher logo"
+     height: 160px
+
+  title: "Go Hardware"
+  subtitle: A Go library and command line tool providing hardware inspection and discovery for Linux and Windows
+
+  image:
+    path: "images" # path to image under configured assets directory. default 'images'
+    filename: "servers.jpg" # filename of your hero image (including file extension)
+    alt: "racks of servers" # Optional but recommended
+    boxShadow: true # default 'false' (excludes .svg images)
+    rounded: true # round the image corners? default 'false' (excludes .svg images)
+
+  ctaButton:
+    icon: rocket_launch
+    btnText: "Get started with the library"
+    url: "/docs/explore/library"
+  cta2Button:
+    icon: construction
+    btnText: "Explore the CLI tool"
+    url: "/docs/explore/cli"
+
+  info: "**Open Source** Apache 2 Licensed."

@@ -7,7 +7,7 @@ icon: "rocket_launch"
 lastmod: "2024-01-05T18:39:08-05:00"
 title: "Using the ghw command line tool"
 toc: true
-weight: 99
+weight: 302
 ---
 
 The `ghw` command line tool queries system hardware information, prints information in
@@ -30,13 +30,73 @@ line tool is to use `go install`:
 go install github.com/go-hardware/ghw/cmd/ghw
 ```
 
-This will install the `ghw` in the calling user's `$GOPATH`.
+This will install the `ghw` command line tool into the calling user's
+`$GOPATH`. The user should ensure that their `$PATH` includes `$GOPATH`.
 
 ### via release binaries
 
 Visit the `ghw` Github Release Page to see the releases of the `ghw` library.
 Each release will include pre-built binary images of the `ghw` command line for
 Linux x86, Windows and Darwin.
+
+## Show host CPU information
+
+Call `ghw` with the `cpu` argument to show host CPU information.
+
+```
+$ ghw cpu
+cpu (2 physical packages, 12 cores, 24 hardware threads)
+ physical package #1 (6 cores, 12 hardware threads)
+  processor core #0 (2 threads), logical processors [0 12]
+  processor core #10 (2 threads), logical processors [10 22]
+  processor core #1 (2 threads), logical processors [2 14]
+  processor core #2 (2 threads), logical processors [4 16]
+  processor core #8 (2 threads), logical processors [6 18]
+  processor core #9 (2 threads), logical processors [8 20]
+  capabilities: [msr pae mce cx8 apic sep
+                 mtrr pge mca cmov pat pse36
+                 clflush dts acpi mmx fxsr sse
+                 sse2 ht tm pbe syscall nx
+                 pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs
+                 bts rep_good nopl xtopology nonstop_tsc cpuid
+                 aperfmperf pni pclmulqdq dtes64 monitor ds_cpl
+                 vmx smx est tm2 ssse3 cx16
+                 xtpr pdcm pcid dca sse4_1 sse4_2
+                 popcnt aes lahf_lm epb pti ssbd
+                 ibrs ibpb stibp tpr_shadow vnmi flexpriority
+                 ept vpid dtherm ida arat flush_l1d]
+ physical package #0 (6 cores, 12 hardware threads)
+  processor core #0 (2 threads), logical processors [1 13]
+  processor core #10 (2 threads), logical processors [11 23]
+  processor core #1 (2 threads), logical processors [3 15]
+  processor core #2 (2 threads), logical processors [5 17]
+  processor core #8 (2 threads), logical processors [7 19]
+  processor core #9 (2 threads), logical processors [9 21]
+  capabilities: [msr pae mce cx8 apic sep
+                 mtrr pge mca cmov pat pse36
+                 clflush dts acpi mmx fxsr sse
+                 sse2 ht tm pbe syscall nx
+                 pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs
+                 bts rep_good nopl xtopology nonstop_tsc cpuid
+                 aperfmperf pni pclmulqdq dtes64 monitor ds_cpl
+                 vmx smx est tm2 ssse3 cx16
+                 xtpr pdcm pcid dca sse4_1 sse4_2
+                 popcnt aes lahf_lm epb pti ssbd
+                 ibrs ibpb stibp tpr_shadow vnmi flexpriority
+                 ept vpid dtherm ida arat flush_l1d]
+```
+
+Use the `-f` (`--format`) flag to switch between `human` readable (the
+default), `yaml` or `json`.
+
+Combining `ghw` with a tool like [`yq`][yq] can be very powerful.
+
+```bash
+$ LOOKUP_CAP=vmx ghw cpu -fyaml | yq eval '.cpu.processors[0].capabilities | contains([strenv(LOOKUP_CAP)])'
+true
+```
+
+[yq]: https://mikefarah.gitbook.io/yq/
 
 ## Show all host system information
 

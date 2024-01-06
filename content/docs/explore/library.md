@@ -7,7 +7,7 @@ icon: "rocket_launch"
 lastmod: "2024-01-05T18:39:08-05:00"
 title: "Using the ghw library"
 toc: true
-weight: 1
+weight: 301
 ---
 
 `ghw` is primarily designed as a Go library that other Go projects can import.
@@ -16,8 +16,8 @@ weight: 1
 import "github.com/go-hardware/ghw"
 ```
 
-The `ghw` library has a set of [*module functions*][mod-functions] that return
-an `Info` struct about a particular hardware domain (e.g. CPU, Memory, Block
+The `ghw` library has a set of [*module functions*][modules] that return an
+`Info` struct about a particular hardware domain (e.g. CPU, Memory, Block
 storage, etc).
 
 Each module function has the same signature, accepting one parameter of type
@@ -74,5 +74,5 @@ func main() {
 }
 ```
 
-[mod-functions]: ../module-functions
+[modules]: ../modules
 [with-functions]: ../with-functions
